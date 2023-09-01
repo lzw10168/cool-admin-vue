@@ -5,6 +5,8 @@
 			<cl-refresh-btn />
 			<!-- 删除按钮 -->
 			<cl-multi-delete-btn />
+			<!-- 新增按钮 -->
+			<cl-add-btn />
 			<!-- 登录方式 -->
 			<cl-filter label="登录方式">
 				<cl-select :options="options.loginType" prop="loginType" style="width: 120px" />
@@ -96,6 +98,11 @@ const Table = useTable({
 			width: 60
 		},
 		{
+			label: "用户名",
+			prop: "username",
+			minWidth: 150
+		},
+		{
 			label: "昵称",
 			prop: "nickName",
 			minWidth: 150
@@ -157,6 +164,18 @@ const Upsert = useUpsert({
 			prop: "avatarUrl",
 			label: "头像",
 			component: { name: "cl-upload" }
+		},
+		{
+			prop: "username",
+			label: "用户名",
+			component: { name: "el-input" },
+			required: true
+		},
+		{
+			prop: "password",
+			label: "密码",
+			component: { name: "el-input" },
+			required: true
 		},
 		{
 			prop: "nickName",

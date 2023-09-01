@@ -1,4 +1,5 @@
 {
 	"editor.cursorSmoothCaretAnimation": "on",
 	"editor.formatOnSave": true,
+	"commentTranslate.targetLanguage": "en",
 }

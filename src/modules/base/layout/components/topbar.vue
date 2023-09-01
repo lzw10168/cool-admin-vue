@@ -20,10 +20,10 @@
 		<!-- 工具栏 -->
 		<ul class="app-topbar__tools">
 			<auto-menu-btn />
-
+			<!-- 
 			<li>
 				<cl-chat />
-			</li>
+			</li> -->
 
 			<li>
 				<cl-theme />

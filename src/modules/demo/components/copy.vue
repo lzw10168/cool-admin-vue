@@ -21,7 +21,7 @@ import { ElMessage } from "element-plus";
 const { copy } = useClipboard();
 
 function toCopy() {
-	copy("https://cool-js.com");
+	// copy("https://cool-js.com");
 	ElMessage.success("保存成功");
 }
 </script>

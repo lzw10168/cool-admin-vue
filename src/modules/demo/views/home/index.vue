@@ -1,5 +1,5 @@
 <template>
-	<div class="view-home">
+	<!-- <div class="view-home">
 		<el-row :gutter="15">
 			<el-col :lg="6" :md="12" :xs="24">
 				<div class="card">
@@ -48,7 +48,8 @@
 				</div>
 			</el-col>
 		</el-row>
-	</div>
+	</div> -->
+	<div class="view-home">welcome to home</div>
 </template>
 
 <script lang="ts" name="home" setup>

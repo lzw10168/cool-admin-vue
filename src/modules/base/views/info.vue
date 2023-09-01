@@ -1,83 +1,102 @@
 <template>
-	<div class="view-my">
-		<div class="title">基本信息</div>
+	<cl-crud ref="Crud">
+		<cl-row>
+			<!-- 刷新按钮 -->
+			<cl-refresh-btn />
+			<!-- 新增按钮 -->
+			<cl-add-btn />
+			<!-- 删除按钮 -->
+			<cl-multi-delete-btn />
+			<cl-flex1 />
+			<!-- 关键字搜索 -->
+			<cl-search-key />
+		</cl-row>
 
-		<el-form label-width="100px" :model="form" :disabled="loading">
-			<el-form-item label="头像">
-				<cl-upload is-space v-model="form.headImg" />
-			</el-form-item>
+		<cl-row>
+			<!-- 数据表格 -->
+			<cl-table ref="Table" />
+		</cl-row>
 
-			<el-form-item label="昵称">
-				<el-input v-model="form.nickName" placeholder="请填写昵称" />
-			</el-form-item>
+		<cl-row>
+			<cl-flex1 />
+			<!-- 分页控件 -->
+			<cl-pagination />
+		</cl-row>
 
-			<el-form-item label="密码">
-				<el-input v-model="form.password" type="password" />
-			</el-form-item>
-
-			<el-form-item>
-				<el-button type="primary" :disabled="loading" @click="save">保存修改</el-button>
-			</el-form-item>
-		</el-form>
-	</div>
+		<!-- 新增、编辑 -->
+		<cl-upsert ref="Upsert" />
+	</cl-crud>
 </template>
 
-<script lang="ts" name="my-info" setup>
-import { ElMessage } from "element-plus";
-import { reactive, ref } from "vue";
-import { useBase } from "/$/base";
+<script lang="ts" name="user-info" setup>
+import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
 import { useCool } from "/@/cool";
-import { cloneDeep } from "lodash-es";
 
 const { service } = useCool();
-const { user } = useBase();
 
-// 表单数据
-const form = reactive<any>(cloneDeep(user.info));
+// cl-upsert
+const Upsert = useUpsert({
+	items: [
+		{ prop: "unionid", label: "登录唯一ID", component: { name: "el-input" } },
+		{
+			prop: "avatarUrl",
+			label: "头像",
+			component: { name: "cl-upload", props: { type: "file", limit: 1 } }
+		},
+		{ prop: "nickName", label: "昵称", component: { name: "el-input" } },
+		{ prop: "phone", label: "手机号", component: { name: "el-input" } },
+		{ prop: "gender", label: "性别", required: true, component: { name: "el-input" } },
+		{ prop: "status", label: "状态", component: { name: "cl-switch" }, required: true },
+		{
+			prop: "loginType",
+			label: "登录方式",
+			component: {
+				name: "el-radio-group",
+				options: [
+					{ label: "小程序", value: 0 },
+					{ label: "公众号", value: 1, color: "#67C23A" },
+					{ label: "H5", value: 2, color: "#E6A23C" }
+				]
+			},
+			value: 0,
+			required: true
+		}
+	]
+});
 
-// 保存状态
-const loading = ref(false);
+// cl-table
+const Table = useTable({
+	columns: [
+		{ type: "selection" },
+		{ prop: "id", label: "ID" },
+		{ prop: "unionid", label: "登录唯一ID" },
+		{ prop: "avatarUrl", label: "头像", component: { name: "cl-link" } },
+		{ prop: "nickName", label: "昵称" },
+		{ prop: "phone", label: "手机号" },
+		{ prop: "gender", label: "性别" },
+		{ prop: "status", label: "状态", component: { name: "cl-switch" } },
+		{
+			prop: "loginType",
+			label: "登录方式",
+			dict: [
+				{ label: "小程序", value: 0 },
+				{ label: "公众号", value: 1, color: "#67C23A" },
+				{ label: "H5", value: 2, color: "#E6A23C" }
+			]
+		},
+		{ prop: "createTime", label: "创建时间", sortable: "desc", width: 160 },
+		{ prop: "updateTime", label: "更新时间", sortable: "custom", width: 160 },
+		{ type: "op", buttons: ["edit", "delete"] }
+	]
+});
 
-// 保存
-async function save() {
-	const { headImg, nickName, password } = form;
-
-	loading.value = true;
-
-	await service.base.comm
-		.personUpdate({
-			headImg,
-			nickName,
-			password
-		})
-		.then(() => {
-			form.password = "";
-			ElMessage.success("修改成功");
-			user.get();
-		})
-		.catch((err) => {
-			ElMessage.error(err.message);
-		});
-
-	loading.value = false;
-}
+// cl-crud
+const Crud = useCrud(
+	{
+		service: service.base.user.info
+	},
+	(app) => {
+		app.refresh();
+	}
+);
 </script>
-
-<style lang="scss">
-.view-my {
-	background-color: var(--el-bg-color);
-	height: 100%;
-	padding: 20px;
-	box-sizing: border-box;
-
-	.el-form {
-		width: 400px;
-		max-width: 100%;
-	}
-
-	.title {
-		margin-bottom: 30px;
-		font-size: 15px;
-	}
-}
-</style>
