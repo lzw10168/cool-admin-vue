@@ -324,6 +324,53 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface GoodsEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * Title
+		 */
+		title?: string;
+		/**
+		 * Price
+		 */
+		price?: number;
+		/**
+		 * Desc
+		 */
+		description?: string;
+		/**
+		 * Main picture
+		 */
+		mainImage?: string;
+		/**
+		 * Sample graph
+		 */
+		exampleImages?: string;
+		/**
+		 * Stock
+		 */
+		stock?: number;
+		/**
+		 * 状态 0-禁用 1-正常
+		 */
+		status?: number;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
 	interface RecycleDataEntity {
 		/**
 		 * ID
@@ -353,6 +400,132 @@ declare namespace Eps {
 		 * 删除数据条数
 		 */
 		count?: number;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
+	interface ReservationsEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * UserID
+		 */
+		userId?: string;
+		/**
+		 * RestaurantID
+		 */
+		restaurantId?: string;
+		/**
+		 * TableID
+		 */
+		tableId?: string;
+		/**
+		 * ReservationDate
+		 */
+		reservationDate?: string;
+		/**
+		 * ReservationTime
+		 */
+		reservationTime?: string;
+		/**
+		 * NumberOfGuests
+		 */
+		numberOfGuests?: number;
+		/**
+		 * 状态 0-已预订 1-已完成 2-已取消
+		 */
+		status?: number;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
+	interface RestaurantEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * Title
+		 */
+		title?: string;
+		/**
+		 * Desc
+		 */
+		description?: string;
+		/**
+		 * Main picture
+		 */
+		mainImage?: string;
+		/**
+		 * Sample graph
+		 */
+		exampleImages?: string;
+		/**
+		 * Open day
+		 */
+		openDay?: string;
+		/**
+		 * Open time
+		 */
+		openTime?: string;
+		/**
+		 * Location
+		 */
+		location?: string;
+		/**
+		 * Longitude
+		 */
+		longitude?: string;
+		/**
+		 * Latitude
+		 */
+		latitude?: string;
+		/**
+		 * Phone
+		 */
+		phone?: string;
+		/**
+		 * Average price
+		 */
+		averagePrice?: number;
+		/**
+		 * Score
+		 */
+		score?: number;
+		/**
+		 * Status 0-休息 1-正常
+		 */
+		status?: number;
+		/**
+		 * Menu
+		 */
+		menu?: string;
+		/**
+		 * Table
+		 */
+		table?: string;
 		/**
 		 * 创建时间
 		 */
@@ -431,6 +604,41 @@ declare namespace Eps {
 		 * 父分类ID
 		 */
 		parentId?: number;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
+	interface TableEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * Title
+		 */
+		title?: string;
+		/**
+		 * Desc
+		 */
+		description?: string;
+		/**
+		 * Capacity
+		 */
+		capacity?: number;
+		/**
+		 * Restaurant id
+		 */
+		restaurantId?: string;
 		/**
 		 * 创建时间
 		 */
@@ -1183,6 +1391,63 @@ declare namespace Eps {
 		request: Service["request"];
 	}
 
+	interface GoodsGoods {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<GoodsEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<GoodsEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: GoodsEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
 	interface RecycleData {
 		/**
 		 * 恢复数据
@@ -1238,6 +1503,120 @@ declare namespace Eps {
 			list: boolean;
 			update: boolean;
 			delete: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
+	interface ReservationsInfo {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<ReservationsEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<ReservationsEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: ReservationsEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
+	interface RestaurantInfo {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<RestaurantEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<RestaurantEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: RestaurantEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
 			add: boolean;
 		};
 		/**
@@ -1366,6 +1745,63 @@ declare namespace Eps {
 		request: Service["request"];
 	}
 
+	interface TableInfo {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<TableEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<TableEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: TableEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
 	interface UserInfo {
 		/**
 		 * 删除
@@ -1446,8 +1882,12 @@ declare namespace Eps {
 			};
 		};
 		demo: { goods: DemoGoods };
+		goods: { goods: GoodsGoods };
 		recycle: { data: RecycleData };
+		reservations: { info: ReservationsInfo };
+		restaurant: { info: RestaurantInfo };
 		space: { info: SpaceInfo; type: SpaceType };
+		table: { info: TableInfo };
 		user: { info: UserInfo };
 	};
 }

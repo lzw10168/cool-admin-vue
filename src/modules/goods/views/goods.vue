@@ -14,7 +14,7 @@
 
 		<cl-row>
 			<!-- 数据表格 -->
-			<cl-table ref="Table" />
+			<cl-table ref="Table"> </cl-table>
 		</cl-row>
 
 		<cl-row>
@@ -24,20 +24,32 @@
 		</cl-row>
 
 		<!-- 新增、编辑 -->
-		<cl-upsert ref="Upsert" />
+		<cl-upsert
+			:dialog="{
+				title: 'Edit'
+			}"
+			ref="Upsert"
+		/>
 	</cl-crud>
 </template>
 
-<script lang="ts" name="restaurant-info" setup>
+<script lang="tsx" name="goods-goods" setup>
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
 import { useCool } from "/@/cool";
-
+import { ElButton } from "element-plus";
 const { service } = useCool();
 
 // cl-upsert
 const Upsert = useUpsert({
 	items: [
 		{ prop: "title", label: "Title", required: true, component: { name: "el-input" } },
+		{
+			prop: "price",
+			label: "Price",
+			hook: { bind: ["number"] },
+			component: { name: "el-input-number", props: { min: 0 } },
+			required: true
+		},
 		{ prop: "description", label: "Desc", component: { name: "el-input" } },
 		{ prop: "mainImage", label: "Main", component: { name: "cl-upload" } },
 		{
@@ -46,27 +58,24 @@ const Upsert = useUpsert({
 			component: { name: "cl-upload", props: { multiple: true } }
 		},
 		{
-			prop: "openTime",
-			label: "Open",
-			component: {
-				name: "el-date-picker",
-				props: { type: "datetime", valueFormat: "YYYY-MM-DD HH:mm:ss" }
-			}
-		},
-		{ prop: "location", label: "Location", component: { name: "el-input" } },
-		{ prop: "longitude", label: "Longitude", component: { name: "el-input" } },
-		{ prop: "latitude", label: "Latitude", component: { name: "el-input" } },
-		{ prop: "phone", label: "Phone", component: { name: "el-input" } },
-		{
-			prop: "averagePrice",
-			label: "Average",
+			prop: "stock",
+			label: "Stock",
 			hook: { bind: ["number"] },
-			component: { name: "el-input-number", props: { min: 0 } }
+			component: { name: "el-input-number", props: { min: 0 } },
+			required: true
 		},
-		{ prop: "score", label: "Score", component: { name: "el-input" } },
-		{ prop: "status", label: "状态", component: { name: "cl-switch" }, required: true },
-		{ prop: "menu", label: "Menu", component: { name: "el-input" } },
-		{ prop: "tables", label: "Tables", component: { name: "el-input" } }
+		{
+			prop: "status",
+			label: "status",
+			component: { name: "cl-switch" },
+			required: true
+		}
+		// {
+		// 	prop: "status1",
+		// 	label: "status1",
+		// 	component: <ElButton>121212</ElButton>,
+		// 	required: true
+		// }
 	]
 });
 
@@ -76,6 +85,7 @@ const Table = useTable({
 		{ type: "selection" },
 		{ prop: "id", label: "ID" },
 		{ prop: "title", label: "Title" },
+		{ prop: "price", label: "Price" },
 		{ prop: "description", label: "Desc" },
 		{ prop: "mainImage", label: "Main", component: { name: "cl-image", props: { size: 60 } } },
 		{
@@ -83,16 +93,8 @@ const Table = useTable({
 			label: "Sample",
 			component: { name: "cl-image", props: { size: 60 } }
 		},
-		{ prop: "openTime", label: "Open" },
-		{ prop: "location", label: "Location" },
-		{ prop: "longitude", label: "Longitude" },
-		{ prop: "latitude", label: "Latitude" },
-		{ prop: "phone", label: "Phone" },
-		{ prop: "averagePrice", label: "Average" },
-		{ prop: "score", label: "Score" },
+		{ prop: "stock", label: "Stock" },
 		{ prop: "status", label: "状态", component: { name: "cl-switch" } },
-		{ prop: "menu", label: "Menu" },
-		{ prop: "tables", label: "Tables" },
 		{ prop: "createTime", label: "创建时间", sortable: "desc", width: 160 },
 		{ prop: "updateTime", label: "更新时间", sortable: "custom", width: 160 },
 		{ type: "op", buttons: ["edit", "delete"] }
@@ -102,7 +104,7 @@ const Table = useTable({
 // cl-crud
 const Crud = useCrud(
 	{
-		service: service.base.restaurant.info
+		service: service.goods.goods
 	},
 	(app) => {
 		app.refresh();

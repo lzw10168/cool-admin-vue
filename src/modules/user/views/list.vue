@@ -6,7 +6,7 @@
 			<!-- 删除按钮 -->
 			<cl-multi-delete-btn />
 			<!-- 新增按钮 -->
-			<cl-add-btn />
+			<cl-add-btn>Add</cl-add-btn>
 			<!-- 登录方式 -->
 			<cl-filter label="登录方式">
 				<cl-select :options="options.loginType" prop="loginType" style="width: 120px" />
