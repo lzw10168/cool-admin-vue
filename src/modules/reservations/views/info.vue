@@ -37,12 +37,18 @@ const { service } = useCool();
 // cl-upsert
 const Upsert = useUpsert({
 	items: [
-		{ prop: "userId", label: "UserID", component: { name: "el-input" } },
-		{ prop: "restaurantId", label: "RestaurantID", component: { name: "el-input" } },
-		{ prop: "tableId", label: "TableID", component: { name: "el-input" } },
+		{ prop: "userId", label: "UserID", required: true, component: { name: "el-input" } },
+		{
+			prop: "restaurantId",
+			label: "RestaurantID",
+			required: true,
+			component: { name: "el-input" }
+		},
+		{ prop: "tableId", label: "TableID", required: true, component: { name: "el-input" } },
 		{
 			prop: "reservationDate",
 			label: "ReservationDate",
+			required: true,
 			component: {
 				name: "el-date-picker",
 				props: { type: "date", valueFormat: "YYYY-MM-DD" }
@@ -51,16 +57,33 @@ const Upsert = useUpsert({
 		{
 			prop: "reservationTime",
 			label: "ReservationTime",
+			required: true,
 			component: {
 				name: "el-date-picker",
 				props: { type: "datetime", valueFormat: "YYYY-MM-DD HH:mm:ss" }
 			}
 		},
-		{ prop: "numberOfGuests", label: "NumberOfGuests", component: { name: "el-input" } },
-		{ prop: "status", label: "状态", component: { name: "cl-switch" }, required: true }
+		{
+			prop: "numberOfGuests",
+			label: "Guests",
+			required: true,
+			component: { name: "el-input" }
+		},
+		{
+			prop: "status",
+			required: true,
+			label: "状态",
+			component: {
+				name: "el-select",
+				options: [
+					{ label: "Reserved", value: "1" },
+					{ label: "Completed", value: "2" },
+					{ label: "Cancelled", value: " -1" }
+				]
+			}
+		}
 	]
 });
-
 // cl-table
 const Table = useTable({
 	columns: [

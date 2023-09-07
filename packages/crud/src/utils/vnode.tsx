@@ -129,11 +129,11 @@ export function renderNode(vnode: any, options: Options) {
 
 			switch (item.component?.name) {
 				case "el-input":
-					placeholder = "请填写";
+					placeholder = "Please enter";
 					break;
 
 				case "el-select":
-					placeholder = "请选择";
+					placeholder = "Please choose";
 					break;
 
 				default:

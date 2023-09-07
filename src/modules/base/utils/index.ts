@@ -19,3 +19,12 @@ export function createLink(url: string, id?: string) {
 		document.getElementsByTagName("head").item(0)?.appendChild(link);
 	}, 0);
 }
+
+export const listFormatOptions = (list) => {
+	return list.map((item) => {
+		return {
+			label: item.title,
+			value: item.id + ""
+		};
+	});
+};

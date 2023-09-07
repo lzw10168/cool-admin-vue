@@ -10,13 +10,13 @@ export default (): ModuleConfig => {
 		order: 99,
 		components: Object.values(import.meta.glob("./components/**/*.{vue,tsx}")),
 		views: [
-			{
-				path: "/my/info",
-				meta: {
-					label: "个人中心"
-				},
-				component: () => import("./views/info.vue")
-			}
+			// {
+			// 	path: "/my/info",
+			// 	meta: {
+			// 		label: "个人中心"
+			// 	},
+			// 	component: () => import("./views/info.vue")
+			// }
 		],
 		pages: [
 			{

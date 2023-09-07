@@ -51,10 +51,11 @@ const Upsert = useUpsert({
 			required: true
 		},
 		{ prop: "description", label: "Desc", component: { name: "el-input" } },
-		{ prop: "mainImage", label: "Main", component: { name: "cl-upload" } },
+		{ prop: "mainImage", label: "Main", component: { name: "cl-upload" }, required: true },
 		{
 			prop: "exampleImages",
 			label: "Sample",
+			required: true,
 			component: { name: "cl-upload", props: { multiple: true } }
 		},
 		{
@@ -63,13 +64,13 @@ const Upsert = useUpsert({
 			hook: { bind: ["number"] },
 			component: { name: "el-input-number", props: { min: 0 } },
 			required: true
-		},
-		{
-			prop: "status",
-			label: "status",
-			component: { name: "cl-switch" },
-			required: true
 		}
+		// {
+		// 	prop: "status",
+		// 	label: "status",
+		// 	component: { name: "cl-switch" },
+		// 	required: true
+		// }
 		// {
 		// 	prop: "status1",
 		// 	label: "status1",

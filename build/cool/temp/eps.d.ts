@@ -348,7 +348,7 @@ declare namespace Eps {
 		/**
 		 * Sample graph
 		 */
-		exampleImages?: string;
+		exampleImages?: longtext;
 		/**
 		 * Stock
 		 */
@@ -444,7 +444,7 @@ declare namespace Eps {
 		 */
 		numberOfGuests?: number;
 		/**
-		 * 状态 0-已预订 1-已完成 2-已取消
+		 * 状态 1-已预订 2-已完成 -1-已取消
 		 */
 		status?: number;
 		/**
@@ -481,7 +481,7 @@ declare namespace Eps {
 		/**
 		 * Sample graph
 		 */
-		exampleImages?: string;
+		exampleImages?: longtext;
 		/**
 		 * Open day
 		 */
@@ -1747,6 +1747,10 @@ declare namespace Eps {
 
 	interface TableInfo {
 		/**
+		 * 获取可选桌位
+		 */
+		getCanChoseTable(data?: any): Promise<any>;
+		/**
 		 * 删除
 		 */
 		delete(data?: any): Promise<any>;
@@ -1778,6 +1782,7 @@ declare namespace Eps {
 		 * 权限标识
 		 */
 		permission: {
+			getCanChoseTable: string;
 			delete: string;
 			update: string;
 			info: string;
@@ -1789,6 +1794,7 @@ declare namespace Eps {
 		 * 权限状态
 		 */
 		_permission: {
+			getCanChoseTable: boolean;
 			delete: boolean;
 			update: boolean;
 			info: boolean;

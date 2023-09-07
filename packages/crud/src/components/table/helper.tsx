@@ -138,7 +138,7 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 					switch (e) {
 						case "refresh":
 							return {
-								label: "刷新",
+								label: "Refresh",
 								callback(done: fn) {
 									crud.refresh();
 									done();
@@ -147,7 +147,7 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 						case "edit":
 						case "update":
 							return {
-								label: "编辑",
+								label: "Edit",
 								hidden: !crud.getPermission("update"),
 								callback(done: fn) {
 									crud.rowEdit(row);
@@ -156,7 +156,7 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 							};
 						case "delete":
 							return {
-								label: "删除",
+								label: "Delete",
 								hidden: !crud.getPermission("delete"),
 								callback(done: fn) {
 									crud.rowDelete(row);
@@ -165,7 +165,7 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 							};
 						case "info":
 							return {
-								label: "详情",
+								label: "Detail",
 								hidden: !crud.getPermission("info"),
 								callback(done: fn) {
 									crud.rowInfo(row);
@@ -175,8 +175,8 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 						case "check":
 							return {
 								label: crud.selection.find((e) => e.id == row.id)
-									? "取消选择"
-									: "选择",
+									? "cancel selection"
+									: "selection",
 								hidden: !config.columns.find((e) => e.type === "selection"),
 								callback(done: fn) {
 									Table.value.toggleRowSelection(row);
@@ -185,7 +185,7 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 							};
 						case "order-desc":
 							return {
-								label: `${column.label} - 降序`,
+								label: `${column.label} - desc`,
 								hidden: !column.sortable,
 								callback(done: fn) {
 									Sort.changeSort(column.property, "desc");
@@ -194,7 +194,7 @@ export function useRow({ Table, config, Sort }: { Table: Table; config: Config; 
 							};
 						case "order-asc":
 							return {
-								label: `${column.label} - 升序`,
+								label: `${column.label} - asc`,
 								hidden: !column.sortable,
 								callback(done: fn) {
 									Sort.changeSort(column.property, "asc");

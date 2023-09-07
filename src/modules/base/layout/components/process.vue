@@ -2,7 +2,7 @@
 	<div class="app-process">
 		<div class="app-process__icon" @click="router.back">
 			<el-icon><arrow-left-bold /></el-icon>
-			<span>后退</span>
+			<span>Back</span>
 		</div>
 
 		<div
@@ -11,7 +11,7 @@
 			@click="router.push('/')"
 		>
 			<el-icon><home-filled /></el-icon>
-			<span>首页</span>
+			<span>Home</span>
 		</div>
 
 		<el-scrollbar :ref="setRefs('scroller')" class="app-process__scroller">
@@ -93,7 +93,7 @@ function openCM(e: any, item: Process.Item) {
 		},
 		list: [
 			{
-				label: "关闭当前",
+				label: "Close current",
 				hidden: item.fullPath !== route.path,
 				callback(done) {
 					onDel(process.list.findIndex((e) => e.fullPath == item.fullPath));
@@ -102,7 +102,7 @@ function openCM(e: any, item: Process.Item) {
 				}
 			},
 			{
-				label: "关闭其他",
+				label: "Close other",
 				callback(done) {
 					process.set(process.list.filter((e) => e.fullPath == item.fullPath));
 					done();
@@ -110,7 +110,7 @@ function openCM(e: any, item: Process.Item) {
 				}
 			},
 			{
-				label: "关闭所有",
+				label: "Close all",
 				callback(done) {
 					process.clear();
 					done();

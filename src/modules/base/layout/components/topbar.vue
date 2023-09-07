@@ -41,8 +41,8 @@
 				<template #dropdown>
 					<el-dropdown-menu>
 						<el-dropdown-item command="my">
-							<i class="cl-iconfont cl-icon-user"></i>
-							<span>个人中心</span>
+							<!-- <i class="cl-iconfont cl-icon-user"></i>
+							<span>个人中心</span> -->
 						</el-dropdown-item>
 						<el-dropdown-item command="exit">
 							<i class="cl-iconfont cl-icon-exit"></i>

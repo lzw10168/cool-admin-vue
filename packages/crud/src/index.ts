@@ -50,7 +50,7 @@ const Crud = {
 						order: "order",
 						prop: "prop"
 					},
-					label: locale.zhCn
+					label: locale.en
 				},
 				style: {},
 				events: {},

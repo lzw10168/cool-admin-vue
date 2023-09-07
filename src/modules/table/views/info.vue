@@ -31,8 +31,25 @@
 <script lang="ts" name="table-info" setup>
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
 import { useCool } from "/@/cool";
+import { onMounted, onBeforeMount, ref, reactive } from "vue";
 
 const { service } = useCool();
+const restaurantList = reactive({ value: [] });
+onMounted(async () => {
+	restaurantList.value = await getRestaurantList();
+});
+
+// 拿到餐厅列表
+const getRestaurantList = async () => {
+	const res = await service.restaurant.info.page();
+	res.list = res.list.map((item) => {
+		return {
+			label: item.title,
+			value: item.id + ""
+		};
+	});
+	return res.list;
+};
 
 // cl-upsert
 const Upsert = useUpsert({
@@ -45,8 +62,19 @@ const Upsert = useUpsert({
 			required: true,
 			component: { name: "el-input-number", props: { min: 0 } }
 		},
-		{ prop: "restaurantId", label: "Restaurant", component: { name: "el-input" } }
-	]
+		{
+			prop: "restaurantId",
+			label: "Restaurant",
+			component: {
+				name: "el-select",
+				options: [],
+				props: { disabled: true }
+			}
+		}
+	],
+	onOpened: (data) => {
+		Upsert.value?.setOptions("restaurantId", restaurantList.value);
+	}
 });
 
 // cl-table
@@ -58,8 +86,8 @@ const Table = useTable({
 		{ prop: "description", label: "Desc" },
 		{ prop: "capacity", label: "Capacity" },
 		{ prop: "restaurantId", label: "Restaurant" },
-		{ prop: "createTime", label: "创建时间", sortable: "desc", width: 160 },
-		{ prop: "updateTime", label: "更新时间", sortable: "custom", width: 160 },
+		{ prop: "createTime", label: "Create time", sortable: "desc", width: 160 },
+		{ prop: "updateTime", label: "Update time", sortable: "custom", width: 160 },
 		{ type: "op", buttons: ["edit", "delete"] }
 	]
 });

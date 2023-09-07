@@ -306,7 +306,7 @@ export default defineComponent({
 						if (e.required) {
 							e.rules = {
 								required: true,
-								message: `${e.label}不能为空`
+								message: `${e.label}Can not be empty`
 							};
 						}
 
@@ -450,7 +450,7 @@ export default defineComponent({
 													Action.collapseItem(e);
 												}}>
 												<el-divider content-position="center">
-													{e.collapse ? "查看更多" : "隐藏内容"}
+													{e.collapse ? "see more" : "hidden content"}
 												</el-divider>
 											</div>
 										)}

@@ -80,15 +80,15 @@ const form = reactive({
 // 登录
 async function toLogin() {
 	if (!form.username) {
-		return ElMessage.error("用户名不能为空");
+		return ElMessage.error("Username can not be empty");
 	}
 
 	if (!form.password) {
-		return ElMessage.error("密码不能为空");
+		return ElMessage.error("Password can not be blank");
 	}
 
 	if (!form.verifyCode) {
-		return ElMessage.error("图片验证码不能为空");
+		return ElMessage.error("Image verification code cannot be empty");
 	}
 
 	saving.value = true;

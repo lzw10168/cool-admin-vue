@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@cool-vue/crud": "^6.3.2",
 		"@element-plus/icons-vue": "^2.0.10",
+		"@rollup/plugin-replace": "^5.0.2",
 		"@vueuse/core": "^9.1.0",
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-vue": "^5.1.12",

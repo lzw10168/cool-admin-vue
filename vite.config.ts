@@ -6,7 +6,9 @@ import compression from "vite-plugin-compression";
 import { visualizer } from "rollup-plugin-visualizer";
 import { proxy } from "./src/cool/config/proxy";
 import { cool } from "./build/cool";
+import replace from "@rollup/plugin-replace";
 
+import TranslatePlugin from "./vite-plugin-vue-trans";
 function resolve(dir: string) {
 	return path.resolve(__dirname, ".", dir);
 }
@@ -17,6 +19,7 @@ export default (): UserConfig => {
 	return {
 		base: "/",
 		plugins: [
+			TranslatePlugin(),
 			vue(),
 			compression(),
 			vueJsx(),
