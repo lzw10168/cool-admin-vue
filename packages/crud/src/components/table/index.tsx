@@ -136,7 +136,7 @@ export default defineComponent({
 							return renderColumn(ctx.columns);
 						},
 						empty() {
-							return renderEmpty(config.emptyText || crud.dict.label.empty);
+							return renderEmpty(config.emptyText || "No Data");
 						},
 						append() {
 							return renderAppend();

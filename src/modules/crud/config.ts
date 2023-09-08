@@ -1,7 +1,7 @@
 import { Merge, ModuleConfig } from "/@/cool";
 
 // npm
-import Crud from "@cool-vue/crud";
+import Crud, { locale } from "@cool-vue/crud";
 import "@cool-vue/crud/dist/index.css";
 
 // 调试、自定义crud
@@ -15,7 +15,8 @@ export default (): Merge<ModuleConfig, CrudOptions> => {
 				sort: {
 					prop: "order",
 					order: "sort"
-				}
+				},
+				label: locale.en
 			}
 		},
 		install: Crud.install

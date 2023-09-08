@@ -422,15 +422,15 @@ declare namespace Eps {
 		/**
 		 * UserID
 		 */
-		userId?: string;
+		userId?: number;
 		/**
 		 * RestaurantID
 		 */
-		restaurantId?: string;
+		restaurantId?: number;
 		/**
 		 * TableID
 		 */
-		tableId?: string;
+		tableId?: number;
 		/**
 		 * ReservationDate
 		 */
@@ -440,9 +440,17 @@ declare namespace Eps {
 		 */
 		reservationTime?: string;
 		/**
+		 * Menu
+		 */
+		menu?: string;
+		/**
 		 * NumberOfGuests
 		 */
 		numberOfGuests?: number;
+		/**
+		 * Remark
+		 */
+		remark?: string;
 		/**
 		 * 状态 1-已预订 2-已完成 -1-已取消
 		 */
@@ -663,9 +671,9 @@ declare namespace Eps {
 		 */
 		unionid?: string;
 		/**
-		 * 用户名
+		 * Email
 		 */
-		username?: string;
+		email?: string;
 		/**
 		 * 密码
 		 */
@@ -1570,6 +1578,10 @@ declare namespace Eps {
 
 	interface RestaurantInfo {
 		/**
+		 * 获取商店菜单
+		 */
+		getRestaurantMenu(data?: any): Promise<any>;
+		/**
 		 * 删除
 		 */
 		delete(data?: any): Promise<any>;
@@ -1601,6 +1613,7 @@ declare namespace Eps {
 		 * 权限标识
 		 */
 		permission: {
+			getRestaurantMenu: string;
 			delete: string;
 			update: string;
 			info: string;
@@ -1612,6 +1625,7 @@ declare namespace Eps {
 		 * 权限状态
 		 */
 		_permission: {
+			getRestaurantMenu: boolean;
 			delete: boolean;
 			update: boolean;
 			info: boolean;
@@ -1747,9 +1761,13 @@ declare namespace Eps {
 
 	interface TableInfo {
 		/**
-		 * 获取可选桌位
+		 * 获取桌位状态
 		 */
-		getCanChoseTable(data?: any): Promise<any>;
+		getTablesStatus(data?: any): Promise<any>;
+		/**
+		 * 获取可添加桌位
+		 */
+		getCanAddTable(data?: any): Promise<any>;
 		/**
 		 * 删除
 		 */
@@ -1782,7 +1800,8 @@ declare namespace Eps {
 		 * 权限标识
 		 */
 		permission: {
-			getCanChoseTable: string;
+			getTablesStatus: string;
+			getCanAddTable: string;
 			delete: string;
 			update: string;
 			info: string;
@@ -1794,7 +1813,8 @@ declare namespace Eps {
 		 * 权限状态
 		 */
 		_permission: {
-			getCanChoseTable: boolean;
+			getTablesStatus: boolean;
+			getCanAddTable: boolean;
 			delete: boolean;
 			update: boolean;
 			info: boolean;

@@ -31,7 +31,7 @@
 <script lang="ts" name="restaurant-info" setup>
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
 import { onMounted, reactive } from "vue";
-import { listFormatOptions } from "/$/base/utils";
+import { getTimeList, listFormatOptions } from "/$/base/utils";
 import { useCool } from "/@/cool";
 
 const { service } = useCool();
@@ -43,20 +43,17 @@ onMounted(async () => {
 	tableList.value = await getAllTableList();
 });
 const getGoodList = async () => {
-	const res = await service.goods.goods.page();
-	res.list = listFormatOptions(res.list);
-	return res.list;
+	const data = await service.goods.goods.list();
+	return listFormatOptions(data);
 };
 const getAllTableList = async () => {
-	const res = await service.table.info.page();
-	res.list = listFormatOptions(res.list);
-	return res.list;
+	const data = await service.table.info.list();
+	return listFormatOptions(data);
 };
 
-const getCanChoseTableList = async (restaurantId) => {
-	const res = await service.table.info.getCanChoseTable({ restaurantId });
-	res.list = listFormatOptions(res.list);
-	return res.list;
+const getCanAddTable = async (restaurantId) => {
+	const data = await service.table.info.getCanAddTable({ restaurantId });
+	return listFormatOptions(data);
 };
 const handleOnSubmit = (data, { next, done, close }) => {
 	data.openTime = data.openTime && data.openTime.join();
@@ -74,12 +71,12 @@ const Upsert = useUpsert({
 			data.openTime = openTime.split(",");
 		}
 		if (typeof table === "string" && table) {
-			data.table = table.split(",");
+			data.table = table.split(",").map((item) => Number(item));
 		}
 		if (typeof menu === "string" && menu) {
-			data.menu = menu.split(",");
+			data.menu = menu.split(",").map((item) => Number(item));
 		}
-		const canChoseTableList = await getCanChoseTableList(data.id);
+		const canChoseTableList = await getCanAddTable(data.id);
 		Upsert.value?.setOptions("menu", goodList.value);
 		Upsert.value?.setOptions("table", canChoseTableList);
 	},
@@ -138,51 +135,18 @@ const Upsert = useUpsert({
 		// 		}
 		// 	}
 		// },
-		{
-			prop: "openTime",
-			label: "Open Time",
-			required: true,
-			component: {
-				name: "el-select",
-				options: [
-					{
-						value: "1",
-						label: "17:00"
-					},
-					{
-						value: "2",
-						label: "17:30"
-					},
-					{
-						value: "3",
-						label: "18:00"
-					},
-					{
-						value: "4",
-						label: "18:30"
-					},
-					{
-						value: "5",
-						label: "19:00"
-					},
-					{
-						value: "6",
-						label: "19:30"
-					},
-					{
-						value: "7",
-						label: "20:00"
-					},
-					{
-						value: "8",
-						label: "20:30"
-					}
-				],
-				props: {
-					multiple: true
-				}
-			}
-		},
+		// {
+		// 	prop: "openTime",
+		// 	label: "Open Time",
+		// 	required: true,
+		// 	component: {
+		// 		name: "el-select",
+		// 		options: getTimeList(false),
+		// 		props: {
+		// 			multiple: true
+		// 		}
+		// 	}
+		// },
 		{ prop: "location", label: "Location", required: true, component: { name: "el-input" } },
 		// { prop: "longitude", label: "Longitude", required: true, component: { name: "el-input" } },
 		// { prop: "latitude", label: "Latitude", required: true, component: { name: "el-input" } },
@@ -247,10 +211,10 @@ const Table = useTable({
 		// 	label: "Sample",
 		// 	component: { name: "cl-image", props: { size: 60 } }
 		// },
-		{
-			prop: "openTime",
-			label: "Open Time"
-		},
+		// {
+		// 	prop: "openTime",
+		// 	label: "Open Time"
+		// },
 		{ prop: "location", label: "Location" },
 		// { prop: "longitude", label: "Longitude" },
 		// { prop: "latitude", label: "Latitude" },

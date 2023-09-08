@@ -19,8 +19,10 @@ const translateMap = {
 	更新时间: "Update Time",
 	创建时间: "Create Time",
 	状态: "Status",
-	不能为空: "-Can not be empty",
-	选择图片: "Select Image"
+	不能为空: "-Can not be empty ",
+	选择图片: "Select Image ",
+	请选择: "Please Select ",
+	暂无数据: "No Data "
 };
 
 function TranslatePlugin(): Plugin {

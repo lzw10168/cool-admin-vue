@@ -85,7 +85,7 @@ const Table = useTable({
 		{ prop: "title", label: "Title" },
 		{ prop: "description", label: "Desc" },
 		{ prop: "capacity", label: "Capacity" },
-		{ prop: "restaurantId", label: "Restaurant" },
+		{ prop: "restaurantTitle", label: "Restaurant" },
 		{ prop: "createTime", label: "Create time", sortable: "desc", width: 160 },
 		{ prop: "updateTime", label: "Update time", sortable: "custom", width: 160 },
 		{ type: "op", buttons: ["edit", "delete"] }
