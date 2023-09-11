@@ -46,7 +46,7 @@
 						</el-dropdown-item>
 						<el-dropdown-item command="exit">
 							<i class="cl-iconfont cl-icon-exit"></i>
-							<span>退出</span>
+							<span>Log Out</span>
 						</el-dropdown-item>
 					</el-dropdown-menu>
 				</template>

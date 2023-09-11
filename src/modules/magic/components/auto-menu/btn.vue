@@ -1,5 +1,6 @@
 <template>
-	<li v-if="!browser.isMini">
+	<!-- <li v-if="!browser.isMini"> -->
+	<li v-if="false">
 		<el-badge is-dot>
 			<div class="btn" @click="toCode">
 				<span>Ai</span>
