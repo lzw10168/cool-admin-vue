@@ -7,6 +7,12 @@
 			<cl-add-btn />
 			<!-- 删除按钮 -->
 			<cl-multi-delete-btn />
+			<cl-filter label="Status">
+				<cl-select :options="statusOptions" prop="status" style="width: 120px" />
+			</cl-filter>
+			<cl-filter label="Restaurant">
+				<cl-select :options="restaurant.value" prop="restaurantId" style="width: 120px" />
+			</cl-filter>
 			<cl-flex1 />
 			<!-- 关键字搜索 -->
 			<cl-search-key />
@@ -46,6 +52,10 @@ const restaurant = reactive<any>({ value: [] });
 const tableDisabled = reactive<any>({ value: true });
 const menuDisabled = reactive<any>({ value: true });
 
+onMounted(async () => {
+	userList.value = await getUserList();
+	restaurant.value = await getRestaurantList();
+});
 onActivated(async () => {
 	userList.value = await getUserList();
 	restaurant.value = await getRestaurantList();
@@ -54,7 +64,7 @@ const getUserList = async () => {
 	const data = await service.user.info.list();
 	return data.map((user) => {
 		return {
-			label: user.nickName + "    " + user.email,
+			label: user.nickName + "   " + user.email,
 			value: user.id
 		};
 	});
@@ -69,7 +79,7 @@ const getTablesStatus = async ({ restaurantId, reservationDate, reservationTime 
 		date: reservationDate,
 		time: reservationTime
 	});
-	return listFormatOptions(data);
+	return listFormatOptions(data.filter((item) => !item.disabled));
 };
 const getRestaurantMenu = async (restaurantId) => {
 	const data = await service.restaurant.info.getRestaurantMenu({ restaurantId });
@@ -192,7 +202,7 @@ const Upsert = useUpsert({
 			required: true,
 			component: {
 				name: "el-select",
-				options: getTimeList(true),
+				options: getTimeList(false),
 				props: {
 					onChange: handleTimeChange
 				}

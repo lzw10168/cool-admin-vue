@@ -30,7 +30,7 @@
 
 <script lang="ts" name="restaurant-info" setup>
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
-import { onMounted, reactive } from "vue";
+import { onActivated, onMounted, reactive } from "vue";
 import { getTimeList, listFormatOptions } from "/$/base/utils";
 import { useCool } from "/@/cool";
 
@@ -39,6 +39,10 @@ const goodList = reactive<any>({ value: [] });
 const tableList = reactive<any>({ value: [] });
 
 onMounted(async () => {
+	goodList.value = await getGoodList();
+	tableList.value = await getAllTableList();
+});
+onActivated(async () => {
 	goodList.value = await getGoodList();
 	tableList.value = await getAllTableList();
 });
@@ -87,7 +91,12 @@ const Upsert = useUpsert({
 			component: { name: "cl-switch" }
 		},
 		{ prop: "title", label: "Title", required: true, component: { name: "el-input" } },
-		{ prop: "description", required: true, label: "Desc", component: { name: "el-input" } },
+		{
+			prop: "description",
+			required: true,
+			label: "Desc",
+			component: { name: "el-input", props: { type: "textarea" } }
+		},
 		{ prop: "mainImage", required: true, label: "Main", component: { name: "cl-upload" } },
 		{
 			prop: "exampleImages",
@@ -204,7 +213,7 @@ const Table = useTable({
 		{ type: "selection" },
 		{ prop: "id", label: "ID" },
 		{ prop: "title", label: "Title" },
-		{ prop: "description", label: "Desc" },
+		{ prop: "description", label: "Desc", showOverflowTooltip: true },
 		{ prop: "mainImage", label: "Main", component: { name: "cl-image", props: { size: 60 } } },
 		// {
 		// 	prop: "exampleImages",

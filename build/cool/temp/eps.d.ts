@@ -703,6 +703,10 @@ declare namespace Eps {
 		 */
 		loginType?: number;
 		/**
+		 * 喜欢的菜品
+		 */
+		likeDish?: string;
+		/**
 		 * 创建时间
 		 */
 		createTime?: Date;

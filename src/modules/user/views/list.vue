@@ -8,16 +8,16 @@
 			<!-- 新增按钮 -->
 			<cl-add-btn>Add</cl-add-btn>
 			<!-- 登录方式 -->
-			<cl-filter label="登录方式">
+			<!-- <cl-filter label="登录方式">
 				<cl-select :options="options.loginType" prop="loginType" style="width: 120px" />
-			</cl-filter>
+			</cl-filter> -->
 			<!-- 性别 -->
-			<cl-filter label="性别">
+			<cl-filter label="Gender">
 				<cl-select :options="options.gender" prop="gender" style="width: 120px" />
 			</cl-filter>
 			<cl-flex1 />
 			<!-- 关键字搜索 -->
-			<cl-search-key placeholder="搜索昵称、手机号" />
+			<cl-search-key placeholder="Search Email, Nickname, Phone" />
 		</cl-row>
 
 		<cl-row>
@@ -98,17 +98,17 @@ const Table = useTable({
 			width: 60
 		},
 		{
-			label: "用户名",
-			prop: "username",
+			label: "Email",
+			prop: "email",
 			minWidth: 150
 		},
 		{
-			label: "昵称",
+			label: "NickName",
 			prop: "nickName",
 			minWidth: 150
 		},
 		{
-			label: "头像",
+			label: "Avatar",
 			prop: "avatarUrl",
 			minWidth: 100,
 			component: {
@@ -116,24 +116,24 @@ const Table = useTable({
 			}
 		},
 		{
-			label: "手机",
+			label: "Phone",
 			prop: "phone",
 			minWidth: 120
 		},
 		{
-			label: "性别",
+			label: "Gender",
 			prop: "gender",
 			dict: options.gender,
 			minWidth: 100
 		},
+		// {
+		// 	label: "登录方式",
+		// 	prop: "loginType",
+		// 	dict: options.loginType,
+		// 	minWidth: 100
+		// },
 		{
-			label: "登录方式",
-			prop: "loginType",
-			dict: options.loginType,
-			minWidth: 100
-		},
-		{
-			label: "状态",
+			label: "Status",
 			prop: "status",
 			minWidth: 100,
 			component: {
@@ -141,13 +141,13 @@ const Table = useTable({
 			}
 		},
 		{
-			label: "创建时间",
+			label: "CreateTime",
 			prop: "createTime",
 			sortable: "desc",
 			minWidth: 150
 		},
 		{
-			label: "操作",
+			label: "Op",
 			type: "op",
 			buttons: ["edit", "delete"]
 		}
@@ -162,30 +162,30 @@ const Upsert = useUpsert({
 	items: [
 		{
 			prop: "avatarUrl",
-			label: "头像",
+			label: "Avatar",
 			component: { name: "cl-upload" }
 		},
 		{
-			prop: "username",
-			label: "用户名",
+			prop: "email",
+			label: "Email",
 			component: { name: "el-input" },
 			required: true
 		},
 		{
 			prop: "password",
-			label: "密码",
+			label: "Password",
 			component: { name: "el-input" },
 			required: true
 		},
 		{
 			prop: "nickName",
-			label: "昵称",
+			label: "NickName",
 			component: { name: "el-input" },
 			required: true
 		},
 		{
 			prop: "phone",
-			label: "手机号",
+			label: "Phone",
 			component: {
 				name: "el-input",
 				props: {
@@ -195,7 +195,7 @@ const Upsert = useUpsert({
 		},
 		{
 			prop: "gender",
-			label: "性别",
+			label: "Gender",
 			value: 1,
 			component: {
 				name: "el-radio-group",
@@ -204,7 +204,7 @@ const Upsert = useUpsert({
 		},
 		{
 			prop: "status",
-			label: "状态",
+			label: "Status",
 			value: 1,
 			component: {
 				name: "el-radio-group",
