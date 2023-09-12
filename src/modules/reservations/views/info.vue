@@ -254,6 +254,8 @@ const Table = useTable({
 		{ type: "selection" },
 		{ prop: "id", label: "ID" },
 		{ prop: "userEmail", label: "UserEmail" },
+		{ prop: "userPhone", label: "UserPhone" },
+
 		{ prop: "restaurantTitle", label: "RestaurantTitle" },
 		{ prop: "tableTitle", label: "TableTitle" },
 		{
