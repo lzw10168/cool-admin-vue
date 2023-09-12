@@ -55,15 +55,13 @@ const Upsert = useUpsert({
 		{
 			prop: "exampleImages",
 			label: "Sample",
-			required: true,
 			component: { name: "cl-upload", props: { multiple: true } }
 		},
 		{
 			prop: "stock",
 			label: "Stock",
 			hook: { bind: ["number"] },
-			component: { name: "el-input-number", props: { min: 0 } },
-			required: true
+			component: { name: "el-input-number", props: { min: 0 } }
 		}
 		// {
 		// 	prop: "status",

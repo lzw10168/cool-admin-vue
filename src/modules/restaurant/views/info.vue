@@ -103,47 +103,17 @@ const Upsert = useUpsert({
 			label: "Sample",
 			component: { name: "cl-upload", props: { multiple: true } }
 		},
-		// {
-		// 	prop: "openDay",
-		// 	label: "Open Day",
-		// 	required: true,
-		// 	component: {
-		// 		name: "el-select",
-		// 		options: [
-		// 			{
-		// 				value: "1",
-		// 				label: "Monday"
-		// 			},
-		// 			{
-		// 				value: "2",
-		// 				label: "Tuesday"
-		// 			},
-		// 			{
-		// 				value: "3",
-		// 				label: "Wednesday"
-		// 			},
-		// 			{
-		// 				value: "4",
-		// 				label: "Thursday"
-		// 			},
-		// 			{
-		// 				value: "5",
-		// 				label: "Friday"
-		// 			},
-		// 			{
-		// 				value: "6",
-		// 				label: "Saturday"
-		// 			},
-		// 			{
-		// 				value: "7",
-		// 				label: "Sunday"
-		// 			}
-		// 		],
-		// 		props: {
-		// 			multiple: true
-		// 		}
-		// 	}
-		// },
+		{
+			prop: "openDay",
+			label: "Open Day",
+			required: true,
+			component: {
+				name: "el-input",
+				props: {
+					placeholder: "Please enter a content"
+				}
+			}
+		},
 		// {
 		// 	prop: "openTime",
 		// 	label: "Open Time",
