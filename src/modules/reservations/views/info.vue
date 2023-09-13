@@ -2,7 +2,7 @@
 	<cl-crud ref="Crud">
 		<cl-row>
 			<!-- 刷新按钮 -->
-			<cl-refresh-btn />
+			<cl-refresh-btn id="refresh" />
 			<!-- 新增按钮 -->
 			<cl-add-btn />
 			<!-- 删除按钮 -->
@@ -146,6 +146,9 @@ const handleCancelOrder = (row) => {
 		})
 		.catch(() => {
 			// catch error
+		})
+		.finally(() => {
+			document.getElementById("refresh")?.click();
 		});
 };
 const handleCompleteOrder = (row) => {
@@ -159,7 +162,7 @@ const handleCompleteOrder = (row) => {
 			// catch error
 		})
 		.finally(() => {
-			// Table.value?.reBuild();
+			document.getElementById("refresh")?.click();
 		});
 };
 // cl-upsert
