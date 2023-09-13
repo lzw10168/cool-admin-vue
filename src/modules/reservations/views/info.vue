@@ -37,9 +37,11 @@
 
 <script lang="ts" name="reservations-info" setup>
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
+import { ElMessageBox } from "element-plus";
 import { onActivated, onMounted, reactive } from "vue";
 import { getTimeList, listFormatOptions, sleep } from "/$/base/utils";
 import { useCool } from "/@/cool";
+
 const statusOptions = [
 	{ label: "Reserved", value: 1 },
 	{ label: "Completed", value: 2 },
@@ -132,13 +134,51 @@ const handleChange = () => {
 		});
 	}
 };
+
+const handleCancelOrder = (row) => {
+	// 二次确认
+	ElMessageBox.confirm("Are you sure to cancel this order?")
+		.then(async () => {
+			await service.reservations.info.update({
+				id: row.id,
+				status: -1
+			});
+		})
+		.catch(() => {
+			// catch error
+		});
+};
+const handleCompleteOrder = (row) => {
+	ElMessageBox.confirm("Are you sure to complete this order?")
+		.then(async () => {
+			await service.reservations.info.completeOrder({
+				id: row.id
+			});
+		})
+		.catch(() => {
+			// catch error
+		})
+		.finally(() => {
+			// Table.value?.reBuild();
+		});
+};
 // cl-upsert
 const Upsert = useUpsert({
 	onSubmit(data, { next, done, close }) {
 		data.menu = data.menu && data.menu.join();
 		next(data);
 	},
-	onOpen() {
+	onOpen(data) {
+		if (data.id) {
+			Upsert.value?.setProps("userId", {
+				disabled: true
+			});
+		} else {
+			Upsert.value?.setForm("status", 1);
+			Upsert.value?.setProps("userId", {
+				disabled: false
+			});
+		}
 		Upsert.value?.setOptions("userId", userList.value);
 		Upsert.value?.setOptions("restaurantId", restaurant.value);
 	},
@@ -157,7 +197,10 @@ const Upsert = useUpsert({
 			label: "Status",
 			component: {
 				name: "el-select",
-				options: statusOptions
+				options: statusOptions,
+				props: {
+					disabled: true
+				}
 			}
 		},
 		{
@@ -250,6 +293,7 @@ const Upsert = useUpsert({
 });
 // cl-table
 const Table = useTable({
+	contextMenu: ["refresh"],
 	columns: [
 		{ type: "selection" },
 		{ prop: "id", label: "ID" },
@@ -282,7 +326,7 @@ const Table = useTable({
 				},
 				{
 					label: "Cancelled",
-					value: 3,
+					value: -1,
 					type: "warning"
 				}
 			]
@@ -293,7 +337,33 @@ const Table = useTable({
 		},
 		{ prop: "createTime", label: "创建时间", sortable: "desc", width: 160 },
 		// { prop: "updateTime", label: "更新时间", sortable: "custom", width: 160 },
-		{ type: "op", buttons: ["edit", "delete"] }
+		{
+			type: "op",
+			width: 350,
+			buttons({ scope }) {
+				return scope.row.status != 1
+					? ["edit"]
+					: [
+							"edit",
+							{
+								label: "Cancel",
+								type: "warning",
+								onClick({ scope }) {
+									handleCancelOrder(scope.row);
+								}
+							},
+							{
+								label: "Complete",
+								type: "success",
+								onClick({ scope }) {
+									handleCompleteOrder(scope.row);
+									// scope行数据
+								}
+							}
+					  ];
+				// "delete"
+			}
+		}
 	]
 });
 

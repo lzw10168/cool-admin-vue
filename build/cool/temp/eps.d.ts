@@ -548,6 +548,37 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface SettingEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * silverLevel
+		 */
+		silver_level?: number;
+		/**
+		 * goldenLevel
+		 */
+		golden_level?: number;
+		/**
+		 * diamondLevel
+		 */
+		diamond_level?: number;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
 	interface SpaceInfoEntity {
 		/**
 		 * ID
@@ -698,6 +729,10 @@ declare namespace Eps {
 		 * 状态 0-禁用 1-正常
 		 */
 		status?: number;
+		/**
+		 * orderCount
+		 */
+		orderCount?: number;
 		/**
 		 * 登录方式 0-小程序 1-公众号 2-H5
 		 */
@@ -1525,6 +1560,10 @@ declare namespace Eps {
 
 	interface ReservationsInfo {
 		/**
+		 * 完成订单
+		 */
+		completeOrder(data?: any): Promise<any>;
+		/**
 		 * 删除
 		 */
 		delete(data?: any): Promise<any>;
@@ -1556,6 +1595,7 @@ declare namespace Eps {
 		 * 权限标识
 		 */
 		permission: {
+			completeOrder: string;
 			delete: string;
 			update: string;
 			info: string;
@@ -1567,6 +1607,7 @@ declare namespace Eps {
 		 * 权限状态
 		 */
 		_permission: {
+			completeOrder: boolean;
 			delete: boolean;
 			update: boolean;
 			info: boolean;
@@ -1630,6 +1671,63 @@ declare namespace Eps {
 		 */
 		_permission: {
 			getRestaurantMenu: boolean;
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
+	interface SettingSetting {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<SettingEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<SettingEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: SettingEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
 			delete: boolean;
 			update: boolean;
 			info: boolean;
@@ -1916,6 +2014,7 @@ declare namespace Eps {
 		recycle: { data: RecycleData };
 		reservations: { info: ReservationsInfo };
 		restaurant: { info: RestaurantInfo };
+		setting: { setting: SettingSetting };
 		space: { info: SpaceInfo; type: SpaceType };
 		table: { info: TableInfo };
 		user: { info: UserInfo };

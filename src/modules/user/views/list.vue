@@ -45,46 +45,30 @@ const { service } = useCool();
 
 // 数据选项
 const options = reactive({
-	loginType: [
-		{
-			label: "小程序",
-			value: 0,
-			type: "danger"
-		},
-		{
-			label: "公众号",
-			value: 1,
-			type: "success"
-		},
-		{
-			label: "H5",
-			value: 2
-		}
-	],
 	gender: [
 		{
-			label: "未知",
+			label: "unknown",
 			value: 0,
 			type: "info"
 		},
 		{
-			label: "男",
+			label: "Male",
 			value: 1,
 			type: "success"
 		},
 		{
-			label: "女",
+			label: "Female",
 			value: 2,
 			type: "danger"
 		}
 	],
 	status: [
 		{
-			label: "启用",
+			label: "Enable",
 			value: 1
 		},
 		{
-			label: "禁用",
+			label: "Disable",
 			value: 0
 		}
 	]
@@ -126,12 +110,12 @@ const Table = useTable({
 			dict: options.gender,
 			minWidth: 100
 		},
-		// {
-		// 	label: "登录方式",
-		// 	prop: "loginType",
-		// 	dict: options.loginType,
-		// 	minWidth: 100
-		// },
+		{
+			// 成单量
+			label: "OrderCount",
+			prop: "orderCount",
+			minWidth: 100
+		},
 		{
 			label: "Status",
 			prop: "status",
